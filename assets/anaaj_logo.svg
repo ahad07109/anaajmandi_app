@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 100 100"
+     width="512"
+     height="512">
+
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34b35a"/>
+      <stop offset="1" stop-color="#0d5226"/>
+    </linearGradient>
+
+    <clipPath id="lc">
+      <circle cx="50" cy="50" r="41"/>
+    </clipPath>
+  </defs>
+
+  <!-- Outer ring -->
+  <circle
+    cx="50"
+    cy="50"
+    r="46"
+    fill="none"
+    stroke="url(#lg)"
+    stroke-width="5"
+  />
+
+  <!-- Background and fields -->
+  <g clip-path="url(#lc)">
+    <circle cx="50" cy="50" r="41" fill="#fbf6e4"/>
+
+    <path
+      d="M0 72Q50 52 100 66V100H0Z"
+      fill="#34b35a"
+    />
+
+    <path
+      d="M0 80Q50 62 100 76V100H0Z"
+      fill="#167a3a"
+    />
+
+    <path
+      d="M0 90Q50 74 100 86V100H0Z"
+      fill="#0d5226"
+    />
+  </g>
+
+  <!-- Wheat stem -->
+  <path
+    d="M50 72V22"
+    stroke="#167a3a"
+    stroke-width="2.4"
+    stroke-linecap="round"
+  />
+
+  <!-- Wheat grains -->
+  <ellipse cx="50" cy="20" rx="3" ry="6.5" fill="#d9a520"/>
+
+  <ellipse
+    cx="43"
+    cy="33"
+    rx="3"
+    ry="6"
+    transform="rotate(-38 43 33)"
+    fill="#d9a520"
+  />
+
+  <ellipse
+    cx="57"
+    cy="33"
+    rx="3"
+    ry="6"
+    transform="rotate(38 57 33)"
+    fill="#d9a520"
+  />
+
+  <ellipse
+    cx="43"
+    cy="42"
+    rx="3"
+    ry="6"
+    transform="rotate(-38 43 42)"
+    fill="#d9a520"
+  />
+
+  <ellipse
+    cx="57"
+    cy="42"
+    rx="3"
+    ry="6"
+    transform="rotate(38 57 42)"
+    fill="#d9a520"
+  />
+
+  <ellipse
+    cx="43"
+    cy="51"
+    rx="3"
+    ry="6"
+    transform="rotate(-38 43 51)"
+    fill="#d9a520"
+  />
+
+  <ellipse
+    cx="57"
+    cy="51"
+    rx="3"
+    ry="6"
+    transform="rotate(38 57 51)"
+    fill="#d9a520"
+  />
+
+  <ellipse
+    cx="43"
+    cy="60"
+    rx="3"
+    ry="6"
+    transform="rotate(-38 43 60)"
+    fill="#d9a520"
+  />
+
+  <ellipse
+    cx="57"
+    cy="60"
+    rx="3"
+    ry="6"
+    transform="rotate(38 57 60)"
+    fill="#d9a520"
+  />
+
+</svg>
