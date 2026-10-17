@@ -634,12 +634,38 @@ class _PhoneScreenState extends State<PhoneScreen> {
           ),
         );
       } else {
+        String? savedName;
+        UserRole? savedRole;
+
+        try {
+          final existing = await supabase
+              .from('users')
+              .select()
+              .eq('phone', phone)
+              .maybeSingle();
+
+          if (existing != null) {
+            final storedName =
+                existing['name']?.toString().trim() ?? '';
+
+            if (storedName.isNotEmpty) {
+              savedName = storedName;
+            }
+
+            savedRole = _getRoleFromId(
+              existing['role']?.toString(),
+            );
+          }
+        } catch (_) {}
+
+        if (!mounted) return;
+
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (_) => HomeScreen(
-              userName: '',
-              role: null,
+              userName: savedName,
+              role: savedRole,
             ),
           ),
           (_) => false,
@@ -1804,31 +1830,98 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment:
               CrossAxisAlignment.start,
           children: [
-            if (userName != null &&
-                userName!.isNotEmpty) ...[
-              Text(
-                lang.tr(
-                  'Assalam-o-Alaikum, $userName 👋',
-                  'السلام علیکم، $userName 👋',
-                ),
-                style: const TextStyle(
-                  color: darkGreen,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w800,
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(
+                18,
+                22,
+                18,
+                20,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.circular(24),
+                border: Border.all(
+                  color: const Color(0xFFE7E9E7),
                 ),
               ),
-              if (role != null) ...[
-                const SizedBox(height: 5),
-                Text(
-                  '${role!.emoji} ${lang.isUrdu ? role!.urduName : role!.englishName}',
-                  style: const TextStyle(
-                    color: Color(0xFF69736C),
-                    fontSize: 14,
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/anaaj_logo.png',
+                    width: 92,
+                    height: 92,
                   ),
-                ),
-              ],
-              const SizedBox(height: 22),
-            ],
+                  const SizedBox(height: 14),
+                  Text(
+                    lang.tr(
+                      'Welcome to Anaaj Mandi',
+                      'اناج منڈی میں خوش آمدید',
+                    ),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: darkGreen,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800,
+                      height: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    lang.tr(
+                      'Pakistan\'s Agricultural Marketplace',
+                      'پاکستان کی زرعی منڈی',
+                    ),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color(0xFF69736C),
+                      fontSize: 14,
+                    ),
+                  ),
+                  if (userName != null &&
+                      userName!.isNotEmpty) ...[
+                    const SizedBox(height: 14),
+                    Text(
+                      lang.tr(
+                        'Assalam-o-Alaikum, $userName',
+                        'السلام علیکم، $userName',
+                      ),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: mandiGreen,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    if (role != null) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        '${role!.emoji} ${lang.isUrdu ? role!.urduName : role!.englishName}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Color(0xFF69736C),
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ],
+                  const SizedBox(height: 12),
+                  Text(
+                    lang.tr(
+                      'Buy • Sell • Trade • Grow',
+                      'خریدیں • بیچیں • تجارت کریں • ترقی کریں',
+                    ),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color(0xFF858E88),
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 18),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
